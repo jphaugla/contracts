@@ -1,0 +1,1 @@
+echo "ft.create contracts schema product TAG SORTABLE expiry NUMERIC SORTABLE  delivery_class TAG SORTABLE  type TAG SORTABLE  details TEXT NOINDEX  price NUMERIC SORTABLE  qty NUMERIC SORTABLE value NUMERIC SORTABLE  market TAG SORTABLE delivery_component TEXT NOSTEM" | redis-cli

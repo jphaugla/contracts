@@ -3,7 +3,27 @@ Create a faked but coherent Redisearch database with options contracts. Here is 
 
 <img src="structure.png" width=480 />
 
-# Usage
+# Docker version
+1. Startup docker environment
+```
+cd compose
+docker-compose up -d
+cd ..
+```
+2. create Redisearch DB with schema
+```
+docker cp scripts/createSchema.sh redis:/tmp
+docker exec -it redis bash -c "/tmp/createSchema.sh"
+```
+3. Install python requirements
+```
+docker exec -it jupyter bash -c "pip install -r /home/jovyan/scripts/requirements.txt"
+```
+4. generate the contracts
+```
+docker exec -it jupyter bash -c "/home/jovyan/scripts/populateContracts.sh"
+```
+# Manual version
 1. Create a virtual env, activate and install the requirements.
    ```
    git clone https://github.com/bjbredis/contracts.git
@@ -28,13 +48,18 @@ Create a faked but coherent Redisearch database with options contracts. Here is 
 
 
 # Sample queries
-Find all contracts of a given product and delivery class:
+Find all put contracts
+`FT.SEARCH contracts @type:{put}`
 
-`FT.SEARCH contracts * @delivery_class:{TSLA-DC} @product:{TSLA-P2}`
+Find all contracts of a given delivery class:
+`FT.SEARCH contracts @delivery_class:{TSLA\-DC}` 
+
+Find products
+`FT.SEARCH contracts @product:{TSLA\-P31}`
 
 Find all delivery components of a given delivery class:
 
-`FT.SEARCH contracts * @delivery_class:{TSLA-DC} return 1 delivery_component`
+`FT.SEARCH contracts @delivery_class:{TSLA\-DC} return 1 delivery_component`
 
 Find outstanding value of all contracts of each delivery class, sort by value descending:
 
