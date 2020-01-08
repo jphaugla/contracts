@@ -8,7 +8,7 @@ services:
   jupyter:
     image: jupyter/minimal-notebook
     volumes:
-      - ../scripts/:/home/jovyan/scripts
+      - ../src/:/home/jovyan/scripts
     ports:
       - 8888:8888
     container_name: jupyter
