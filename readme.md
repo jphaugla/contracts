@@ -12,7 +12,7 @@ cd ..
 ```
 2. create Redisearch DB with schema
 ```
-docker cp scripts/createSchema.sh redis:/tmp
+docker cp src/createSchema.sh redis:/tmp
 docker exec -it redis bash -c "/tmp/createSchema.sh"
 ```
 3. Install python requirements
