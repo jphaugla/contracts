@@ -24,6 +24,7 @@ for (dirpath, dirnames, filenames) in os.walk(base_directory):
                 memberId = str(memberIdInt)
                 memberIdFloat = float(memberIdInt)
                 keyname="memberHash:" + memberId
+                idxKeyName="memberIndex:" + memberId
                 id1=""
                 id2=""
                 id3=""
@@ -35,19 +36,23 @@ for (dirpath, dirnames, filenames) in os.walk(base_directory):
                         # only one of these is needed, either the sorted set if it is unique or the set if not unique
                         # set
                         r.sadd("id1:" + id1, memberId)
+                        r.sadd(idxKeyName,"id1:" + id1)
                         # sorted set
                         r.zadd(zkeyname+"id1", {id1 : memberIdInt})
                     if identifier['type']=='ID2':
                         id2 = identifier['value']
                         r.sadd("id2:" + id2, memberId)
+                        r.sadd(idxKeyName,"id2:" + id2)
                         r.zadd(zkeyname+"id2", {id2 : memberIdInt})
                     if identifier['type']=='ID3':
                         id3 = identifier['value']
                         r.sadd("id3:" + id3, memberId)
+                        r.sadd(idxKeyName,"id3:" + id3)
                         r.zadd(zkeyname+"id3", {id3 : memberIdInt})
                     if identifier['type']=='ID4':
                         id4 = identifier['value']
                         r.sadd("id4:" + id4, memberId)
+                        r.sadd(idxKeyName,"id4:" + id4)
                         r.zadd(zkeyname + "id4", {id4 : memberIdInt})
                 r.hmset(keyname, {'id': member['id'], 'firstName': member['firstName'], 'lastName': member['firstName'],
                                   'dependentSequence': member['dependentSequence'], 'id1': id1, 'id2': id2, 'id3': id3,
