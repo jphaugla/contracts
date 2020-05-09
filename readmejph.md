@@ -136,3 +136,6 @@ Jaonna found with fuzzy
 ```bash
 ft.search myIndex @body:%%Joanna%%
 ```
+Some simple queries
+FT.SEARCH myIndex @body:selling|spelling|Jesse 
+FT.SEARCH  myIndex @body:"wich erors"

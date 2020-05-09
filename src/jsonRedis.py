@@ -20,25 +20,32 @@ for (dirpath, dirnames, filenames) in os.walk(base_directory):
             print(data['data']['members'])
             for member in data['data']['members']:
                 print("the id is", member['id'])
-                memberId = str(member['id'])
+                memberIdInt = member['id']
+                memberId = str(memberIdInt)
+                memberIdFloat = float(memberIdInt)
                 keyname="memberHash:" + memberId
                 id1=""
                 id2=""
                 id3=""
                 id4=""
+                zkeyname = "identifier:"
                 for identifier in member['identifiers']:
                     if identifier['type']=='ID1':
                         id1 = identifier['value']
                         r.sadd("id1:" + id1, memberId)
+                        r.zadd(zkeyname+"id1", {id1 : memberIdInt})
                     if identifier['type']=='ID2':
                         id2 = identifier['value']
                         r.sadd("id2:" + id2, memberId)
+                        r.zadd(zkeyname+"id2", {id2 : memberIdInt})
                     if identifier['type']=='ID3':
                         id3 = identifier['value']
                         r.sadd("id3:" + id3, memberId)
+                        r.zadd(zkeyname+"id3", {id3 : memberIdInt})
                     if identifier['type']=='ID4':
                         id4 = identifier['value']
                         r.sadd("id4:" + id4, memberId)
+                        r.zadd(zkeyname + "id4", {id4 : memberIdInt})
                 r.hmset(keyname, {'id': member['id'], 'firstName': member['firstName'], 'lastName': member['firstName'],
                                   'dependentSequence': member['dependentSequence'], 'id1': id1, 'id2': id2, 'id3': id3,
                             'id4': id4, })
