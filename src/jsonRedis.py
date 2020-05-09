@@ -32,7 +32,10 @@ for (dirpath, dirnames, filenames) in os.walk(base_directory):
                 for identifier in member['identifiers']:
                     if identifier['type']=='ID1':
                         id1 = identifier['value']
+                        # only one of these is needed, either the sorted set if it is unique or the set if not unique
+                        # set
                         r.sadd("id1:" + id1, memberId)
+                        # sorted set
                         r.zadd(zkeyname+"id1", {id1 : memberIdInt})
                     if identifier['type']=='ID2':
                         id2 = identifier['value']
